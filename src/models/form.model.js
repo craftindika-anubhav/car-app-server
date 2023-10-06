@@ -25,6 +25,13 @@ const formSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  payment: {
+    type: Boolean,
+    default: false,
+  },
+  subscriptionType: {
+    type: String,
+  },
 });
 
 export default mongoose.model('Form', formSchema);

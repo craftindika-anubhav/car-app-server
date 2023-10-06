@@ -1,7 +1,12 @@
 import express from 'express';
 import Admin from '../models/admin.model.js';
+import Form from '../models/form.model.js';
 import { createToken, verifyToken } from '../middleware/jwt.middleware.js';
 const router = express.Router();
+
+router.get('/check-login', verifyToken, (req, res) =>
+  res.status(200).send('ok')
+);
 
 router.post('/register', async (req, res) => {
   try {
@@ -26,6 +31,7 @@ router.post('/register', async (req, res) => {
       message: 'Admin Created',
     });
   } catch (err) {
+    console.log(err);
     res.status(500).json({
       status: 'FAIL',
       message: 'Internal Server Error',

@@ -17,8 +17,8 @@ router.post('/register', async (req, res) => {
         message: 'Missing Fields',
       });
     }
-    const adminExists = await Admin.findOne({ email });
-    if (adminExists) {
+    const adminExists = await Admin.find();
+    if (adminExists && adminExists.length) {
       return res.status(300).json({
         response: 'FAIL',
         message: 'Admin Already Exists',

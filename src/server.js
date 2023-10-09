@@ -16,9 +16,7 @@ async function main() {
   );
   app.use('/api/form', FormRouter);
   app.use('/api/admin', AdminRouter);
-  app.get('/health', (req, res) => {
-    res.status(200).send('ok');
-  });
+  app.get('/health', (req, res) => res.status(200).send('ok'));
 
   const PORT = process.env.PORT;
 

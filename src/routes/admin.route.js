@@ -88,4 +88,13 @@ router.get('/get-forms', verifyToken, async (req, res) => {
   }
 });
 
+router.get('/delete-form-data', verifyToken, async (req, res) => {
+  try {
+    await Form.deleteMany();
+    res.status(200).send('deleted');
+  } catch (err) {
+    res.status(500).send('something went wrong');
+  }
+});
+
 export default router;

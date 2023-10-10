@@ -1,6 +1,34 @@
 import express from 'express';
 import Form from '../models/form.model.js';
+import sendMail from '../utils/nodemailer.util.js';
 const router = express.Router();
+
+router.post('/contact', async (req, res) => {
+  try {
+    const { name, email, msg } = req.body;
+    if (!name || !email || !msg) {
+      return res.status(300).json({
+        status: 'FAIL',
+        message: 'Missing Fields',
+      });
+    }
+    const data = `
+    <div>Name : ${name}</div>
+    <div>Email : ${email}</div>
+    <div>Message : ${msg}</div>
+    `;
+    await sendMail('support@autotradinggenius.com', 'Form Submission', data);
+    res.status(200).json({
+      status: 'SUCCESS',
+      message: 'Message Sent',
+    });
+  } catch (err) {
+    return res.status(500).json({
+      status: 'FAIL',
+      message: 'Internal Server Error',
+    });
+  }
+});
 
 router.post('/confirm-payment', async (req, res) => {
   try {
